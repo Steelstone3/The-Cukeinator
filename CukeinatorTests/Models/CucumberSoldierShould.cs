@@ -35,5 +35,22 @@ namespace CukeinatorTests.Models
             //Then
             Assert.Equal(0, soldier.Shields);
         }
+
+        [Theory]
+        [InlineData(10)]
+        [InlineData(100)]
+        [InlineData(110)]
+        [InlineData(200)]
+        public void TakeNoHealthDamageWhilstShieldsAreFunctional(byte damage)
+        {
+            //Given
+            ICucumberSoldier soldier = new CucumberSoldier();
+
+            //When
+            soldier.TakeHealthDamage(damage);
+
+            //Then
+            Assert.Equal(100, soldier.Health);
+        }
     }
 }
