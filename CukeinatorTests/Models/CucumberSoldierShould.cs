@@ -20,6 +20,25 @@ namespace CukeinatorTests.Models
         }
 
         [Theory]
+        [InlineData(60, 50)]
+        [InlineData(40, 70)]
+        [InlineData(30, 80)]
+        [InlineData(20, 90)]
+        [InlineData(10, 100)]
+        [InlineData(5, 100)]
+        public void TakeShieldDamage(byte damage, byte shields)
+        {
+            //Given
+            ICucumberSoldier soldier = new CucumberSoldier();
+
+            //When
+            soldier.TakeShieldDamage(damage);
+
+            //Then
+            Assert.Equal(shields, soldier.Shields);
+        }
+
+        [Theory]
         [InlineData(110)]
         [InlineData(111)]
         [InlineData(150)]
