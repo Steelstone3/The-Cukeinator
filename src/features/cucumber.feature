@@ -1,4 +1,4 @@
-Feature: Cucumber
+Feature: Cucumber Soldier
 
   Scenario: Take damage to shields
     Given Cucumber has shields

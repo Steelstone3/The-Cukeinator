@@ -1,4 +1,5 @@
-pub struct Cucumber {
+#[allow(dead_code)]
+pub struct CucumberSoldier {
     shields: u8,
     health: u8,
     attack: u8,
@@ -6,7 +7,7 @@ pub struct Cucumber {
     defence: u8,
 }
 
-impl Default for Cucumber {
+impl Default for CucumberSoldier {
     fn default() -> Self {
         Self {
             shields: 100,
@@ -18,7 +19,8 @@ impl Default for Cucumber {
     }
 }
 
-impl Cucumber {
+impl CucumberSoldier {
+    #[allow(dead_code)]
     pub fn take_damage_to_shields(&mut self, damage: u8) {
         if damage >= self.shields {
             self.shields = 0;
@@ -26,14 +28,15 @@ impl Cucumber {
             self.shields -= damage;
         }
     }
-
+    
+    #[allow(dead_code)]
     pub fn take_damage_to_health(&mut self, damage: u8) {
-        if self.shields > 0 {
-            return;
-        } else if damage >= self.health {
-            self.health = 0;
-        } else {
-            self.health -= damage;
+        if self.shields == 0 {
+            if damage >= self.health {
+                self.health = 0;
+            } else {
+                self.health -= damage;
+            }
         }
     }
 }
@@ -44,7 +47,7 @@ mod cucumber_should {
 
     #[test]
     fn have_a_default_state() {
-        let cucumber = Cucumber::default();
+        let cucumber = CucumberSoldier::default();
 
         assert_eq!(100, cucumber.shields);
         assert_eq!(100, cucumber.health);
@@ -55,7 +58,7 @@ mod cucumber_should {
 
     #[test]
     fn be_able_to_take_damage_to_shields() {
-        let mut cucumber = Cucumber::default();
+        let mut cucumber = CucumberSoldier::default();
 
         cucumber.take_damage_to_shields(99);
 
@@ -64,7 +67,7 @@ mod cucumber_should {
 
     #[test]
     fn be_able_to_take_extreme_damage_to_shields() {
-        let mut cucumber = Cucumber::default();
+        let mut cucumber = CucumberSoldier::default();
 
         cucumber.take_damage_to_shields(200);
 
@@ -73,7 +76,7 @@ mod cucumber_should {
 
     #[test]
     fn be_able_to_resist_damage_to_health_when_shields_are_active() {
-        let mut cucumber = Cucumber::default();
+        let mut cucumber = CucumberSoldier::default();
 
         cucumber.take_damage_to_health(99);
 
@@ -82,7 +85,7 @@ mod cucumber_should {
 
     #[test]
     fn be_able_to_take_damage_to_health_when_shields_are_depleted() {
-        let mut cucumber = Cucumber::default();
+        let mut cucumber = CucumberSoldier::default();
         cucumber.shields = 0;
 
         cucumber.take_damage_to_health(99);
@@ -92,7 +95,7 @@ mod cucumber_should {
 
     #[test]
     fn be_able_to_take_extreme_damage_to_health_when_shields_are_depleted() {
-        let mut cucumber = Cucumber::default();
+        let mut cucumber = CucumberSoldier::default();
         cucumber.shields = 0;
 
         cucumber.take_damage_to_health(200);

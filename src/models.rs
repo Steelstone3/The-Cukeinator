@@ -1,2 +1,2 @@
-mod cucumber;
-mod fruit;
+mod cucumber_soldier;
+mod fruit_soldier;
