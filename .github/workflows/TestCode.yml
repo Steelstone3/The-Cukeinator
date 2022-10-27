@@ -47,7 +47,7 @@ jobs:
     - name: Format
       working-directory: ./CukeinatorAcceptanceTests
       run: dotnet format
-    - name: Install test dependencies
+    - name: Install acceptance test dependencies
       working-directory: ./CukeinatorAcceptanceTests
       run: dotnet restore
     - name: Acceptance Tests
