@@ -1,4 +1,4 @@
-namespace BubblesDivePlanner.Presenters
+namespace Cukeinator.Presenters
 {
     public interface IPresenter
     {

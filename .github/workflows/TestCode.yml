@@ -27,20 +27,20 @@ jobs:
       with:
         dotnet-version: 6.0.101
     - name: Format
-      working-directory: ./BubblesDivePlanner
+      working-directory: ./Cukeinator
       run: dotnet format
     - name: Install app dependencies
-      working-directory: ./BubblesDivePlanner
+      working-directory: ./Cukeinator
       run: dotnet restore
     - name: Build
-      working-directory: ./BubblesDivePlanner
+      working-directory: ./Cukeinator
       run: dotnet build --configuration Release --no-restore
     - name: Format
-      working-directory: ./BubblesDivePlannerTests
+      working-directory: ./CukeinatorTests
       run: dotnet format
     - name: Install test dependencies
-      working-directory: ./BubblesDivePlannerTests
+      working-directory: ./CukeinatorTests
       run: dotnet restore
     - name: Test
-      working-directory: ./BubblesDivePlannerTests
+      working-directory: ./CukeinatorTests
       run: dotnet test --no-restore --verbosity normal

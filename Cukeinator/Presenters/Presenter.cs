@@ -1,6 +1,6 @@
 using Spectre.Console;
 
-namespace BubblesDivePlanner.Presenters
+namespace Cukeinator.Presenters
 {
     public class Presenter : IPresenter
     {

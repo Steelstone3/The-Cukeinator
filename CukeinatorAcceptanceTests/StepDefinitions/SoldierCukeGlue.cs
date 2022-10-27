@@ -1,4 +1,3 @@
-
 using TechTalk.SpecFlow;
 
 namespace CukeinatorAcceptanceTests.StepDefinitions
