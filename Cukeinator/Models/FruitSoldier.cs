@@ -1,6 +1,6 @@
 namespace Cukeinator.Models
 {
-    public class FruitSoldier
+    public class FruitSoldier : Soldier
     {
 
     }
