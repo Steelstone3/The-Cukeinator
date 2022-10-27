@@ -38,9 +38,18 @@ jobs:
     - name: Format
       working-directory: ./CukeinatorTests
       run: dotnet format
-    - name: Install test dependencies
+    - name: Install unit test dependencies
       working-directory: ./CukeinatorTests
       run: dotnet restore
-    - name: Test
+    - name: Unit Tests
       working-directory: ./CukeinatorTests
+      run: dotnet test --no-restore --verbosity normal
+    - name: Format
+      working-directory: ./CukeinatorAcceptanceTests
+      run: dotnet format
+    - name: Install test dependencies
+      working-directory: ./CukeinatorAcceptanceTests
+      run: dotnet restore
+    - name: Acceptance Tests
+      working-directory: ./CukeinatorAcceptanceTests
       run: dotnet test --no-restore --verbosity normal
