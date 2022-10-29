@@ -2,7 +2,7 @@ using Cukeinator.Models;
 
 namespace Cukeinator.Controllers
 {
-    public class GameController : IGameController
+    public class TurnController : ITurnController
     {
         public void PlayerTurn(ICucumberSoldier attackingSolider, ISoldier defendingSoldier)
         {

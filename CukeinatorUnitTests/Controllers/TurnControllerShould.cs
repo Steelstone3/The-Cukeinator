@@ -5,9 +5,9 @@ using Xunit;
 
 namespace CukeinatorTests.Controllers
 {
-    public class GameControllerShould
+    public class TurnControllerShould
     {
-        private readonly IGameController gameController = new GameController();
+        private readonly ITurnController gameController = new TurnController();
 
         [Fact]
         public void RunPlayerTurn()
