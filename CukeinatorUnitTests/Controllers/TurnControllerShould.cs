@@ -7,21 +7,21 @@ namespace CukeinatorTests.Controllers
 {
     public class TurnControllerShould
     {
-        private readonly ITurnController gameController = new TurnController();
+        private readonly ITurnController turnController = new TurnController();
 
         [Fact]
         public void RunPlayerTurn()
         {
             // Given
             ICucumberSoldier attackingSolider = new CucumberSoldier();
-            Mock<ISoldier> defendingSoldier = new Mock<ISoldier>();
-            defendingSoldier.Setup(ds => ds.TakeHealthDamage(attackingSolider.Attack));
+            Mock<ISoldier> mockDefendingSoldier = new Mock<ISoldier>();
+            mockDefendingSoldier.Setup(ds => ds.TakeHealthDamage(attackingSolider.Attack));
 
             // When
-            gameController.PlayerTurn(attackingSolider, defendingSoldier.Object);
+            turnController.PlayerTurn(attackingSolider, mockDefendingSoldier.Object);
 
             // Then
-            defendingSoldier.VerifyAll();
+            mockDefendingSoldier.VerifyAll();
         }
 
         [Fact]
@@ -29,15 +29,15 @@ namespace CukeinatorTests.Controllers
         {
             // Given
             ISoldier attackingSoldier = new FruitSoldier();
-            Mock<ICucumberSoldier> defendingSoldier = new Mock<ICucumberSoldier>();
-            defendingSoldier.Setup(ds => ds.TakeShieldDamage(attackingSoldier.Attack));
-            defendingSoldier.Setup(ds => ds.TakeHealthDamage(attackingSoldier.Attack));
+            Mock<ICucumberSoldier> mockDefendingSoldier = new Mock<ICucumberSoldier>();
+            mockDefendingSoldier.Setup(ds => ds.TakeShieldDamage(attackingSoldier.Attack));
+            mockDefendingSoldier.Setup(ds => ds.TakeHealthDamage(attackingSoldier.Attack));
 
             // When
-            gameController.ComputerTurn(attackingSoldier, defendingSoldier.Object);
+            turnController.ComputerTurn(attackingSoldier, mockDefendingSoldier.Object);
 
             // Then
-            defendingSoldier.VerifyAll();
+            mockDefendingSoldier.VerifyAll();
         }
     }
 }

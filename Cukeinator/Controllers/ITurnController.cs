@@ -4,7 +4,7 @@ namespace Cukeinator.Controllers
 {
     public interface ITurnController
     {
-        void PlayerTurn(ICucumberSoldier attackingSolider, ISoldier defendingSoldier);
-        void ComputerTurn(ISoldier attackingSoldier, ICucumberSoldier defendingSoldier);
+        bool PlayerTurn(ICucumberSoldier attackingSolider, ISoldier defendingSoldier);
+        bool ComputerTurn(ISoldier attackingSoldier, ICucumberSoldier defendingSoldier);
     }
 }

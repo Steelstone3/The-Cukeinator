@@ -4,15 +4,19 @@ namespace Cukeinator.Controllers
 {
     public class TurnController : ITurnController
     {
-        public void PlayerTurn(ICucumberSoldier attackingSolider, ISoldier defendingSoldier)
+        public bool PlayerTurn(ICucumberSoldier attackingSolider, ISoldier defendingSoldier)
         {
             defendingSoldier.TakeHealthDamage(attackingSolider.Attack);
+
+            return false;
         }
 
-        public void ComputerTurn(ISoldier attackingSoldier, ICucumberSoldier defendingSoldier)
+        public bool ComputerTurn(ISoldier attackingSoldier, ICucumberSoldier defendingSoldier)
         {
             defendingSoldier.TakeShieldDamage(attackingSoldier.Attack);
             defendingSoldier.TakeHealthDamage(attackingSoldier.Attack);
+
+            return false;
         }
     }
 }
