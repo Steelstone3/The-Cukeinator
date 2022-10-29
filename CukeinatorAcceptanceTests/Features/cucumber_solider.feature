@@ -14,12 +14,3 @@ Feature: Cucumber Soldier
     Given Cucumber soldier has shields
     When Cucumber soldier's health is attacked with shields
     Then Cucumber soldier will take no damage to health
-
-# Given Steps
-# {Cucumber/ Fruit soldier} {has/ has depleted} {shields/ health}
-
-# When Steps
-# {Cucumber/ Fruit soldier}'s {health/ shields} is attacked
-
-# Then Steps
-# {Cucumber/ Fruit soldier} will take {damage/ no damage} to {shields/ health}

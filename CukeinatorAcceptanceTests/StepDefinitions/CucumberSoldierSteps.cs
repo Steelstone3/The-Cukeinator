@@ -81,8 +81,7 @@ namespace CukeinatorAcceptanceTests.StepDefinitions
         {
             var soldier = scenarioContext.Get<ICucumberSoldier>(WOUNDED_SOLDIER);
             Assert.Equal(DEPLETED_SHIELDS, soldier.Shields);
-            // TODO Can't work out why that is actual: 100
-            // Assert.Equal(REMAINING_HEALTH, soldier.Health);
+            Assert.Equal(REMAINING_HEALTH, soldier.Health);
         }
 
         [Then("Cucumber soldier will take no damage to health")]
