@@ -1,4 +1,3 @@
-using System.Data;
 using Cukeinator.Models;
 using TechTalk.SpecFlow;
 using Xunit;
@@ -38,7 +37,7 @@ namespace CukeinatorAcceptanceTests.StepDefinitions
         public void GivenCucumberSoldierHasDepletedShields()
         {
             ICucumberSoldier soldier = new CucumberSoldier();
-            soldier.TakeShieldDamage(255);
+            soldier.TakeShieldDamage(byte.MaxValue);
             scenarioContext.Add(UNSHIELDED_SOLDIER, soldier);
         }
 

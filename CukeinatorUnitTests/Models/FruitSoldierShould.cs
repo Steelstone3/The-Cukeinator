@@ -24,6 +24,10 @@ namespace CukeinatorTests.Models
         [InlineData(20, 90)]
         [InlineData(10, 100)]
         [InlineData(5, 100)]
+        [InlineData(110, 0)]
+        [InlineData(111, 0)]
+        [InlineData(150, 0)]
+        [InlineData(200, 0)]
         public void TakeHealthDamage(byte damage, byte health)
         {
             //Given
@@ -34,23 +38,6 @@ namespace CukeinatorTests.Models
 
             //Then
             Assert.Equal(health, soldier.Health);
-        }
-
-        [Theory]
-        [InlineData(110)]
-        [InlineData(111)]
-        [InlineData(150)]
-        [InlineData(200)]
-        public void TakeExtremeHealthDamage(byte damage)
-        {
-            //Given
-            ISoldier soldier = new FruitSoldier();
-
-            //When
-            soldier.TakeHealthDamage(damage);
-
-            //Then
-            Assert.Equal(0, soldier.Health);
         }
     }
 }

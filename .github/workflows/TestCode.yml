@@ -36,13 +36,13 @@ jobs:
       working-directory: ./Cukeinator
       run: dotnet build --configuration Release --no-restore
     - name: Format
-      working-directory: ./CukeinatorTests
+      working-directory: ./CukeinatorUnitTests
       run: dotnet format
     - name: Install unit test dependencies
-      working-directory: ./CukeinatorTests
+      working-directory: ./CukeinatorUnitTests
       run: dotnet restore
     - name: Unit Tests
-      working-directory: ./CukeinatorTests
+      working-directory: ./CukeinatorUnitTests
       run: dotnet test --no-restore --verbosity normal
     - name: Format
       working-directory: ./CukeinatorAcceptanceTests
