@@ -11,13 +11,13 @@ namespace Cukeinator.Models
             {
                 return;
             }
-            else if (damage - Defense >= Shields)
+            else if (damage - Defense >= Health)
             {
-                Shields = 0;
+                Health = 0;
             }
             else
             {
-                Shields -= (byte)(damage - Defense);
+                Health -= (byte)(damage - Defense);
             }
         }
 
