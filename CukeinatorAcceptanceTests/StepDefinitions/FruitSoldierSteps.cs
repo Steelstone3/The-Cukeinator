@@ -3,11 +3,11 @@ using TechTalk.SpecFlow;
 namespace CukeinatorAcceptanceTests.StepDefinitions
 {
     [Binding]
-    public class FruitSoldier
+    public class FruitSoldierSteps
     {
         private readonly ScenarioContext scenarioContext;
 
-        public FruitSoldier(ScenarioContext scenarioContext)
+        public FruitSoldierSteps(ScenarioContext scenarioContext)
         {
             this.scenarioContext = scenarioContext;
         }

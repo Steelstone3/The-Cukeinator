@@ -1,13 +1,14 @@
+using Cukeinator.Models;
 using TechTalk.SpecFlow;
 
 namespace CukeinatorAcceptanceTests.StepDefinitions
 {
     [Binding]
-    public class CucumberSoldier
+    public class CucumberSoldierSteps
     {
         private readonly ScenarioContext scenarioContext;
 
-        public CucumberSoldier(ScenarioContext scenarioContext)
+        public CucumberSoldierSteps(ScenarioContext scenarioContext)
         {
             this.scenarioContext = scenarioContext;
         }
@@ -15,6 +16,7 @@ namespace CukeinatorAcceptanceTests.StepDefinitions
         [Given("Cucumber soldier has shields")]
         public void GivenCucumberSoldierHasShields()
         {
+            // ICucumberSoldier soldier = new CucumberSoldier();
             scenarioContext.Pending();
         }
 
