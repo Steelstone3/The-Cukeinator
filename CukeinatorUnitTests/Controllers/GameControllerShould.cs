@@ -8,32 +8,100 @@ namespace CukeinatorUnitTests.Controllers
 {
     public class GameControllerShould
     {
-        private ICucumberSoldier playerSoldier = new CucumberSoldier();
-        private ISoldier computerSoldier = new FruitSoldier();
-        Mock<IPresenter> mockPresenter = new();
-        Mock<ITurnController> stubTurnController = new();
+        private Mock<ICucumberSoldier> stubPlayerSoldier = new();
+        private Mock<ISoldier> stubComputerSoldier = new();
+        private Mock<IPresenter> mockPresenter = new();
+        private Mock<ITurnController> stubTurnController = new();
+        private string PlayerSoldierAttackMessage => $"Player soldier does {stubPlayerSoldier.Object.Attack} to computer soldier.";
+        private string ComputerSoldierAttackMessage => $"Computer soldier does {stubComputerSoldier.Object.Attack} to player soldier.";
+        private string StatusMessage => $"| Player soldier | Shields: {stubPlayerSoldier.Object.Shields} | Health: {stubPlayerSoldier.Object.Health} |\n| Computer soldier | Health: {stubComputerSoldier.Object.Health} |";
+        private IGameController gameController;
 
         public GameControllerShould()
         {
-            mockPresenter.Setup(p => p.Print($"Player soldier does {playerSoldier.Attack} to computer soldier."));
-            mockPresenter.Setup(p => p.Print($"Computer soldier does {computerSoldier.Attack} to player soldier."));   
-            mockPresenter.Setup(p => p.Print($"| Player soldier | Shields: {playerSoldier.Shields} | Health: {playerSoldier.Health} |\n| Computer soldier | Health: {computerSoldier.Health} |"));
+            stubPlayerSoldier.Setup(ps => ps.IsAlive).Returns(true);
+            stubComputerSoldier.Setup(ps => ps.IsAlive).Returns(true);
+
+            mockPresenter.Setup(p => p.Print(PlayerSoldierAttackMessage));
+            mockPresenter.Setup(p => p.Print(ComputerSoldierAttackMessage));
+            mockPresenter.Setup(p => p.Print(StatusMessage));
+
+            stubTurnController.Setup(tc => tc.PlayerTurn(stubPlayerSoldier.Object, stubComputerSoldier.Object)).Returns(true);
+            stubTurnController.Setup(tc => tc.ComputerTurn(stubComputerSoldier.Object, stubPlayerSoldier.Object)).Returns(false);
+
+            gameController = new GameController(mockPresenter.Object, stubTurnController.Object);
         }
 
         [Fact]
-        public void RunCombatTurns()
+        public void RunPlayersTurn()
         {
             // Given
-            stubTurnController.Setup(tc => tc.PlayerTurn(playerSoldier, computerSoldier)).Returns(false);
-            stubTurnController.Setup(tc => tc.ComputerTurn(computerSoldier, playerSoldier)).Returns(false);
-            IGameController gameController = new GameController(mockPresenter.Object,stubTurnController.Object);
+            stubTurnController.Setup(tc => tc.ComputerTurn(stubComputerSoldier.Object, stubPlayerSoldier.Object)).Returns(false);
+            gameController = new GameController(mockPresenter.Object, stubTurnController.Object);
 
             // When
-            gameController.RunCombat(playerSoldier, computerSoldier);
+            gameController.RunCombat(stubPlayerSoldier.Object, stubComputerSoldier.Object);
 
             // Then
             mockPresenter.VerifyAll();
             stubTurnController.VerifyAll();
         }
+
+        [Fact]
+        public void RunPlayersLastTurn()
+        {
+            // Given
+            stubComputerSoldier.Setup(cs => cs.IsAlive).Returns(false);
+            stubTurnController.Setup(tc => tc.ComputerTurn(stubComputerSoldier.Object, stubPlayerSoldier.Object)).Returns(false);
+            gameController = new GameController(mockPresenter.Object, stubTurnController.Object);
+
+            // When
+            gameController.RunCombat(stubPlayerSoldier.Object, stubComputerSoldier.Object);
+
+            // Then
+            mockPresenter.Verify(p => p.Print(PlayerSoldierAttackMessage), Times.Never);
+            mockPresenter.Verify(p => p.Print(ComputerSoldierAttackMessage));
+            mockPresenter.Verify(p => p.Print(StatusMessage));
+            stubTurnController.Verify(tc => tc.PlayerTurn(stubPlayerSoldier.Object, stubComputerSoldier.Object), Times.Never);
+            stubTurnController.Verify(tc => tc.ComputerTurn(stubComputerSoldier.Object, stubPlayerSoldier.Object));
+        }
+
+        [Fact]
+        public void RunComputersTurn()
+        {
+            // Given
+            stubTurnController.Setup(tc => tc.PlayerTurn(stubPlayerSoldier.Object, stubComputerSoldier.Object)).Returns(false);
+            gameController = new GameController(mockPresenter.Object, stubTurnController.Object);
+
+            // When
+            gameController.RunCombat(stubPlayerSoldier.Object, stubComputerSoldier.Object);
+
+            // Then
+            mockPresenter.Verify(p => p.Print(PlayerSoldierAttackMessage));
+            mockPresenter.Verify(p => p.Print(ComputerSoldierAttackMessage), Times.Never);
+            mockPresenter.Verify(p => p.Print(StatusMessage));
+            stubTurnController.Verify(tc => tc.PlayerTurn(stubPlayerSoldier.Object, stubComputerSoldier.Object));
+            stubTurnController.Verify(tc => tc.ComputerTurn(stubComputerSoldier.Object, stubPlayerSoldier.Object), Times.Never);
+        }
+
+        [Fact]
+        public void RunComputersLastTurn()
+        {
+            // Given
+            stubPlayerSoldier.Setup(ps => ps.IsAlive).Returns(false);
+            stubTurnController.Setup(tc => tc.PlayerTurn(stubPlayerSoldier.Object, stubComputerSoldier.Object)).Returns(false);
+            gameController = new GameController(mockPresenter.Object, stubTurnController.Object);
+
+            // When
+            gameController.RunCombat(stubPlayerSoldier.Object, stubComputerSoldier.Object);
+
+            // Then
+            mockPresenter.Verify(p => p.Print(PlayerSoldierAttackMessage));
+            mockPresenter.Verify(p => p.Print(ComputerSoldierAttackMessage), Times.Never);
+            mockPresenter.Verify(p => p.Print(StatusMessage));
+            stubTurnController.Verify(tc => tc.PlayerTurn(stubPlayerSoldier.Object, stubComputerSoldier.Object));
+            stubTurnController.Verify(tc => tc.ComputerTurn(stubComputerSoldier.Object, stubPlayerSoldier.Object), Times.Never);
+        }
+
     }
 }

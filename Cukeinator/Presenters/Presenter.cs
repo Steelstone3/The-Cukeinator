@@ -6,6 +6,7 @@ namespace Cukeinator.Presenters
     {
         public void Print(string message)
         {
+            message += "\n\n";
             AnsiConsole.Write(new Markup(message));
         }
     }

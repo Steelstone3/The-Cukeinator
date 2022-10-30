@@ -16,12 +16,26 @@ namespace Cukeinator.Controllers
 
         public void RunCombat(ICucumberSoldier playerSoldier, ISoldier computerSoldier)
         {
-            turnController.PlayerTurn(playerSoldier, computerSoldier);
-            presenter.Print($"Player soldier does {playerSoldier.Attack} to computer soldier.");
-            turnController.ComputerTurn(computerSoldier, playerSoldier);
-            presenter.Print($"Computer soldier does {computerSoldier.Attack} to player soldier.");
+            bool isPlayerSoldierAlive = playerSoldier.IsAlive;
+            bool isComputerSoldierAlive = computerSoldier.IsAlive;
 
-            presenter.Print($"| Player soldier | Shields: {playerSoldier.Shields} | Health: {playerSoldier.Health} |\n| Computer soldier | Health: {computerSoldier.Health} |");
+            do
+            {
+                if (isComputerSoldierAlive)
+                {
+                    isPlayerSoldierAlive = turnController.PlayerTurn(playerSoldier, computerSoldier);
+                    presenter.Print($"Player soldier does {playerSoldier.Attack} to computer soldier.");
+                }
+
+                if (isPlayerSoldierAlive)
+                {
+                    isComputerSoldierAlive = turnController.ComputerTurn(computerSoldier, playerSoldier);
+                    presenter.Print($"Computer soldier does {computerSoldier.Attack} to player soldier.");
+                }
+
+                presenter.Print($"| Player soldier | Shields: {playerSoldier.Shields} | Health: {playerSoldier.Health} |\n| Computer soldier | Health: {computerSoldier.Health} |");
+            }
+            while (isPlayerSoldierAlive && isComputerSoldierAlive);
         }
     }
 }

@@ -5,16 +5,16 @@ namespace CukeinatorTests.Models
 {
     public class FruitSoldierShould
     {
+        private ISoldier soldier = new FruitSoldier();
+
         [Fact]
         public void Construct()
         {
-            // Given
-            ISoldier soldier = new FruitSoldier();
-
             // Then
             Assert.Equal(100, soldier.Health);
             Assert.Equal(25, soldier.Attack);
             Assert.Equal(10, soldier.Defense);
+            Assert.True(soldier.IsAlive);
         }
 
         [Theory]
@@ -30,14 +30,21 @@ namespace CukeinatorTests.Models
         [InlineData(200, 0)]
         public void TakeHealthDamage(byte damage, byte health)
         {
-            //Given
-            ISoldier soldier = new FruitSoldier();
-
             //When
             soldier.TakeHealthDamage(damage);
 
             //Then
             Assert.Equal(health, soldier.Health);
+        }
+
+        [Fact]
+        public void DieWhenHealthIsZero()
+        {
+            // When
+            soldier.TakeHealthDamage(byte.MaxValue);
+
+            // Then
+            Assert.False(soldier.IsAlive);
         }
     }
 }
