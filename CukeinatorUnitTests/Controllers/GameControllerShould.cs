@@ -8,10 +8,10 @@ namespace CukeinatorUnitTests.Controllers
 {
     public class GameControllerShould
     {
-        private Mock<ICucumberSoldier> stubPlayerSoldier = new();
-        private Mock<ISoldier> stubComputerSoldier = new();
-        private Mock<IPresenter> mockPresenter = new();
-        private Mock<ITurnController> stubTurnController = new();
+        private readonly Mock<ICucumberSoldier> stubPlayerSoldier = new();
+        private readonly Mock<ISoldier> stubComputerSoldier = new();
+        private readonly Mock<IPresenter> mockPresenter = new();
+        private readonly Mock<ITurnController> stubTurnController = new();
         private string PlayerSoldierAttackMessage => $"Player soldier does {stubPlayerSoldier.Object.Attack} to computer soldier.";
         private string ComputerSoldierAttackMessage => $"Computer soldier does {stubComputerSoldier.Object.Attack} to player soldier.";
         private string StatusMessage => $"| Player soldier | Shields: {stubPlayerSoldier.Object.Shields} | Health: {stubPlayerSoldier.Object.Health} |\n| Computer soldier | Health: {stubComputerSoldier.Object.Health} |";

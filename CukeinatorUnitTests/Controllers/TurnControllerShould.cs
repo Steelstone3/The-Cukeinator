@@ -7,10 +7,10 @@ namespace CukeinatorTests.Controllers
 {
     public class TurnControllerShould
     {
-        private ICucumberSoldier playerSoldier = new CucumberSoldier();
-        private ISoldier computerSoldier = new FruitSoldier();
-        private Mock<ISoldier> stubDefendingComputerSoldier = new();
-        private Mock<ICucumberSoldier> stubDefendingPlayerSoldier = new();
+        private readonly ICucumberSoldier playerSoldier = new CucumberSoldier();
+        private readonly ISoldier computerSoldier = new FruitSoldier();
+        private readonly Mock<ISoldier> stubDefendingComputerSoldier = new();
+        private readonly Mock<ICucumberSoldier> stubDefendingPlayerSoldier = new();
         private readonly ITurnController turnController = new TurnController();
 
         public TurnControllerShould()

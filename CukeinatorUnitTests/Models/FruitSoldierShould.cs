@@ -5,7 +5,7 @@ namespace CukeinatorTests.Models
 {
     public class FruitSoldierShould
     {
-        private ISoldier soldier = new FruitSoldier();
+        private readonly ISoldier soldier = new FruitSoldier();
 
         [Fact]
         public void Construct()

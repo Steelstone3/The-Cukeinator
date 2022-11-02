@@ -5,8 +5,8 @@ namespace Cukeinator.Controllers
 {
     public class GameController : IGameController
     {
-        private IPresenter presenter;
-        private ITurnController turnController;
+        private readonly IPresenter presenter;
+        private readonly ITurnController turnController;
 
         public GameController(IPresenter presenter, ITurnController turnController)
         {
